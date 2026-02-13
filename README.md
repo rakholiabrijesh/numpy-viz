@@ -34,11 +34,11 @@ img[:, :, 2] += 128                           # Blue:  constant everywhere
 
 Each cell shows `R,G,B` values. The four corners demonstrate additive color mixing:
 
-| Corner | R | G | B | Color |
-|--------|---|---|---|-------|
-| Top-left | 0 | 0 | 128 | Dark blue |
-| Top-right | 255 | 0 | 128 | Pink/Magenta |
-| Bottom-left | 0 | 255 | 128 | Mint/Aqua |
+| Corner       | R   | G   | B   | Color         |
+| ------------ | --- | --- | --- | ------------- |
+| Top-left     | 0   | 0   | 128 | Dark blue     |
+| Top-right    | 255 | 0   | 128 | Pink/Magenta  |
+| Bottom-left  | 0   | 255 | 128 | Mint/Aqua     |
 | Bottom-right | 255 | 255 | 128 | Pastel yellow |
 
 ## Visualizing Operations
@@ -63,30 +63,3 @@ show_before_after(img, after, "Brightness ×1.5")
 ![Before/After Brightness](before_after_brightness.png)
 
 Notice how `np.clip` caps values at 255 — pixels that were already bright get **clipped**, losing detail. This is visible in the numbers.
-
-## API
-
-```python
-from grid_viz import show_rgb_grid, show_channel_grids, show_image_and_grids, show_before_after
-
-show_rgb_grid(img)                              # Image + single grid with r,g,b per cell
-show_channel_grids(img)                         # Three separate R, G, B grids
-show_image_and_grids(img)                       # Image on top, channel grids below
-show_before_after(before, after, "Op Name")     # Side-by-side comparison with all channels
-```
-
-## Broadcasting Cheatsheet
-
-These patterns came up while building the gradient image:
-
-```python
-vals = np.linspace(0, 255, 10)        # shape (10,)
-
-img[:, :, 0] += vals                   # (10,10) + (10,) → broadcasts across columns
-img[:, :, 1] += vals.reshape(10, 1)    # (10,10) + (10,1) → broadcasts down rows
-img[:, :, 2] += 128                    # scalar broadcasts everywhere
-```
-
-## Part of
-
-[4-Week NumPy Bootcamp](.) — Week 1: Image Processing Library from Scratch
